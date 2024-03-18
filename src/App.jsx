@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import './App.css';
 import NoMovieSelected from './components/NoMovieSelected';
 import Sidebar from './components/Sidebar';
 import AddMovieReview from './components/AddMovieReview';
+import MoviesList from './components/MoviesList';
 
 function App() {
   const [movieState, setMovieState] = useState({
@@ -19,18 +21,31 @@ function App() {
     })
   }
 
-  let content;
+  console.log(movieState);
 
-  if (movieState.selectedMovieId === null) {
-    content = <AddMovieReview />
-  }else if (movieState.selectedMovieId === undefined) {
-    content = <NoMovieSelected onStartAddReview={handleStartAddReview}/>
+  function handleAddReview(reviewData) {
+    setMovieState(prevState => {
+      const newReview = {
+        id : Math.random(),
+        ...reviewData
+      }
+
+      return {
+        ...prevState,
+        selectedMovieId : undefined,
+        movies : [...prevState.movies, newReview]
+      }
+    })
   }
-
+  
   return (
-    <main className='h-screen my-8 flex gap-8'>
-      <Sidebar onStartAddReview={handleStartAddReview}/>
-      {content}
+    <main className='my-8 flex'>
+      <div className='h-screen flex col-2'>
+        <Sidebar moviesList={movieState.movies} onStartAddReview={handleStartAddReview}/>
+      </div>
+      <div className='col-10'>
+        <MoviesList />
+      </div>
     </main>
   );
 }

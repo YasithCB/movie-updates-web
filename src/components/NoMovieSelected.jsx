@@ -7,7 +7,7 @@ export default function NoMovieSelected({onStartAddReview}) {
             <h2 className="text-xl text-stone-500 my-4 font-bold">No Movie Selected</h2>
             <p className="mb-4 text-stone-600">select a movie or add a review for a movie</p>
             <p>
-                <Button onClick={onStartAddReview} text='Add a Review' />
+                <Button onClick={onStartAddReview}>Add a Review</Button>
             </p>
         </div>
     )
